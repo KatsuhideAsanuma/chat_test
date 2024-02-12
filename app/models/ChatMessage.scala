@@ -1,0 +1,1 @@
+case class ChatMessage(username: String, message: String)
