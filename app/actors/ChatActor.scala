@@ -1,13 +1,16 @@
-import akka.actor._
+import org.apache.pekko.actor.typed.ActorRef
+import org.apache.pekko.actor.typed.Behavior
+import org.apache.pekko.actor.typed.scaladsl.Behaviors
 
 object ChatActor {
-  def props(out: ActorRef) = Props(new ChatActor(out))
-}
+  // メッセージプロトコルの定義
+  sealed trait Command
+  case class SendMessage(msg: String) extends Command
+  case class MessageReceived(msg: String) extends Command
 
-class ChatActor(out: ActorRef) extends Actor {
-  def receive = {
-    case msg: String =>
-      // ここでチャットメッセージを処理します
+  def apply(out: ActorRef[String]): Behavior[Command] = Behaviors.receiveMessage {
+    case SendMessage(msg) =>
       out ! s"Received: $msg"
+      Behaviors.same
   }
 }
