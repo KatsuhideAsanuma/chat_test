@@ -12,6 +12,10 @@
             var messages = document.getElementById("messages");
             var input = document.getElementById("messageInput");
             var sendButton = document.getElementById("sendButton");
+            var usernameDisplay = document.getElementById("usernameDisplay");
+
+            // ユーザー名を表示
+            usernameDisplay.textContent = "Username: " + username;
 
             ws.onmessage = function(event) {
                 var data = JSON.parse(event.data);
@@ -30,6 +34,7 @@
 </head>
 <body>
     <h1>@title</h1>
+    <div id="usernameDisplay"></div> <!-- ユーザー名を表示するための要素 -->
     <div id="messages"></div>
     <input type="text" id="messageInput" placeholder="Type a message">
     <button id="sendButton">Send</button>
