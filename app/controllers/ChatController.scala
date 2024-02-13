@@ -8,9 +8,7 @@ import play.api.mvc._
 import actors.ChatWebSocketActor
 
 class ChatController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
-  def socket = WebSocket.accept[String, String] { request =>
-    ActorFlow.actorRef { out =>
-      ChatWebSocketActor.props(out)
-    }
+  def socket(username: String) = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out => ChatWebSocketActor.props(out, username) }
   }
 }
