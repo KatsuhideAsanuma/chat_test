@@ -12,6 +12,6 @@ class ChatWebSocketActor(out: ActorRef, username: String) extends Actor {
   def receive = {
     case msg: String =>
       // ユーザー名を使用してメッセージをエコーバックする
-      out ! Json.toJson(ChatMessage(username, "I received your message: " + msg)).toString
+      out ! Json.toJson(ChatMessage(username, msg)).toString
   }
 }
