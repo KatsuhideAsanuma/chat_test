@@ -23,6 +23,7 @@ class MessageBrokerActor extends Actor {
     case Unregister(actorRef) =>
       clients -= actorRef
     case Broadcast(message) =>
-      clients.foreach(_ ! Json.toJson(message).toString)
+      val messageJson = Json.toJson(message).toString() // ここで一度だけシリアライズ
+      clients.foreach(_ ! messageJson)
   }
 }

@@ -12,13 +12,15 @@ object ChatWebSocketActor {
 class ChatWebSocketActor(out: ActorRef, username: String, messageBroker: ActorRef) extends Actor {
   import MessageBrokerActor._
 
-  override def preStart(): Unit = {
-    messageBroker ! Register(self)
-  }
+override def preStart(): Unit = {
+  messageBroker ! Register(self)
+  println(s"ChatWebSocketActor for $username started.")
+}
 
-  override def postStop(): Unit = {
-    messageBroker ! Unregister(self)
-  }
+override def postStop(): Unit = {
+  messageBroker ! Unregister(self)
+  println(s"ChatWebSocketActor for $username stopped.")
+}
 
   def receive = {
     case msg: String =>
