@@ -15,7 +15,7 @@ class ChatController @Inject()(cc: ControllerComponents)(implicit system: ActorS
   val messageBroker = system.actorOf(MessageBrokerActor.props, "messageBroker")
 
 def socket(username: String) = WebSocket.accept[String, String] { request =>
-  logger.info(s"WebSocket connection established for user: $username")
+  println(s"WebSocket connection established for user: $username")
   ActorFlow.actorRef { out =>
     ChatWebSocketActor.props(out, username, messageBroker) // 修正済み
   }
