@@ -14,13 +14,10 @@ class ChatController @Inject()(cc: ControllerComponents)(implicit system: ActorS
 
   val messageBroker = system.actorOf(MessageBrokerActor.props, "messageBroker")
 
-  def socket(username: String) = WebSocket.accept[String, String] { request =>
-    logger.info(s"WebSocket connection established for user: $username")
-    ActorFlow.actorRef { out =>
-      val props = ChatWebSocketActor.props(out, username, messageBroker)
-      val actorRef = system.actorOf(props)
-      logger.info(s"ChatWebSocketActor created for user: $username with actorRef: $actorRef")
-      actorRef
-    }
+def socket(username: String) = WebSocket.accept[String, String] { request =>
+  logger.info(s"WebSocket connection established for user: $username")
+  ActorFlow.actorRef { out =>
+    ChatWebSocketActor.props(out, username, messageBroker) // 修正済み
   }
+}
 }

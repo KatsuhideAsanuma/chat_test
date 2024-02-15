@@ -5,5 +5,6 @@
 
 
 
-GET     /chatSocket                  controllers.ChatController.socket(username: String)
+GET     /chatSocket             controllers.ChatController.socket(username: String)
 GET     /    controllers.HomeController.chat
+

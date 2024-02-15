@@ -3,6 +3,9 @@ package actors
 import org.apache.pekko.actor.{Actor, ActorRef, Props}
 import play.api.libs.json.Json
 import models.ChatMessage
+import actors.MessageBrokerActor.Register
+import actors.MessageBrokerActor.Unregister
+import actors.MessageBrokerActor.Broadcast
 import play.api.Logger
 
 object ChatWebSocketActor {
